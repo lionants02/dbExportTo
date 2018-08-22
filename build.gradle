@@ -7,13 +7,22 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    def jdbiVersion = "3.1.0"
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile 'com.github.ffc-nectec:entities:visit-SNAPSHOT'
+    compile "org.jdbi:jdbi3-core:$jdbiVersion"
+    compile "org.jdbi:jdbi3-kotlin:$jdbiVersion"
+    compile "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
+    compile "mysql:mysql-connector-java:5.1.38"
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+
 }
 
 compileKotlin {
