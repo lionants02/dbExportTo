@@ -2,6 +2,7 @@ package ffc.airsync.exportdb.db
 
 import ffc.airsync.exportdb.QueryData
 import ffc.airsync.exportdb.db.jhcisdb.QueryDisease
+import ffc.airsync.exportdb.db.jhcisdb.QueryHomeHealthType
 import ffc.entity.healthcare.Disease
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
@@ -18,6 +19,10 @@ class JhcisDbDao(
 
     override fun getDisease(): List<Disease> {
         return createJdbi().extension<QueryDisease, List<Disease>> { get() }
+    }
+
+    override fun getHomeHealthType(): List<HashMap<String, String?>> {
+        return createJdbi().extension<QueryHomeHealthType, List<HashMap<String, String?>>> { get() }
     }
 
     private fun createJdbi(): Jdbi {
