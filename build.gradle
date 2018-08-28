@@ -2,6 +2,7 @@ plugins {
     id 'kotlin-platform-jvm' version '1.2.60'
 }
 
+
 group 'th.nectec.wnp.dbexportto'
 version '1.0-SNAPSHOT'
 
@@ -14,11 +15,18 @@ dependencies {
     def jdbiVersion = "3.1.0"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile 'com.github.ffc-nectec:entities:visit-SNAPSHOT'
+    compile ('com.github.ffc-nectec:entities:1.0.0-alpha4'){
+        exclude group: "com.gregwoodfill.assert"
+    }
+
+
+
     compile "org.jdbi:jdbi3-core:$jdbiVersion"
     compile "org.jdbi:jdbi3-kotlin:$jdbiVersion"
     compile "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
     compile "mysql:mysql-connector-java:5.1.38"
+
+
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
