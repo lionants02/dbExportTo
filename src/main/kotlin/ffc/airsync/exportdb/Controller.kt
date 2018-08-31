@@ -1,8 +1,8 @@
 package ffc.airsync.exportdb
 
 import ffc.airsync.exportdb.db.JhcisDbDao
-import ffc.airsync.utils.printDebug
 import ffc.entity.gson.toJson
+import java.io.FileWriter
 
 class Controller {
     fun process() {
@@ -11,6 +11,13 @@ class Controller {
         val diseaseList = jhcisDbDao.getDisease()
         val homeHealthType = jhcisDbDao.getHomeHealthType()
 
-        printDebug(homeHealthType.toJson())
+        writeFile(diseaseList.toJson(), "Disease.json")
+        writeFile(homeHealthType.toJson(), "HomeHealthType.json")
+    }
+
+    private fun writeFile(strData: String, fileName: String) {
+        val fileWriter = FileWriter(fileName)
+        fileWriter.write(strData)
+        fileWriter.close()
     }
 }
