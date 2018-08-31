@@ -1,5 +1,9 @@
 package ffc.airsync.exportdb.db.jhcisdb
 
+import ffc.entity.Lang
+import ffc.entity.Link
+import ffc.entity.System
+import ffc.entity.healthcare.CommunityServiceType
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -18,19 +22,23 @@ FROM
     """
     )
     @RegisterRowMapper(GetHomeHealthMapper::class)
-    fun get(): List<HashMap<String, String?>>
+    fun get(): List<CommunityServiceType>
 }
 
-class GetHomeHealthMapper : RowMapper<HashMap<String, String?>> {
-    override fun map(rs: ResultSet?, ctx: StatementContext?): HashMap<String, String?> {
+class GetHomeHealthMapper : RowMapper<CommunityServiceType> {
+    override fun map(rs: ResultSet?, ctx: StatementContext?): CommunityServiceType {
         if (rs == null) throw ClassNotFoundException()
 
-        val homeHealthType = HashMap<String, String?>()
+        val homeHealthType = CommunityServiceType(
+            rs.getString("code"),
+            rs.getString("mean")
+        ).apply {
 
-        homeHealthType["code"] = rs.getString("code")
-        homeHealthType["mean"] = rs.getString("mean")
-        homeHealthType["map"] = rs.getString("map")
-
+            translation[Lang.th] = rs.getString("mean")
+            link = Link(System.JHICS).apply {
+                keys["code"] = rs.getString("code")
+            }
+        }
 
         return homeHealthType
     }
