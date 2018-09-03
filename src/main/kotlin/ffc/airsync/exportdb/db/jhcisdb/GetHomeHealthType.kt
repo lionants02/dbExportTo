@@ -37,6 +37,10 @@ class GetHomeHealthMapper : RowMapper<CommunityServiceType> {
             translation[Lang.th] = rs.getString("mean")
             link = Link(System.JHICS).apply {
                 keys["code"] = rs.getString("code")
+                try {
+                    keys["map"] = rs.getString("map")
+                } catch (ignore: java.lang.IllegalStateException) {
+                }
             }
         }
 
