@@ -29,7 +29,7 @@ FROM
     fun get(): List<Disease>
 }
 
-class GetDiseaseMapper : RowMapper<Disease> {
+internal class GetDiseaseMapper : RowMapper<Disease> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Disease {
         if (rs == null) throw ClassNotFoundException()
 

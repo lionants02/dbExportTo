@@ -23,7 +23,7 @@ FROM
     fun get(): List<ServiceType>
 }
 
-class GetHomeHealthMapper : RowMapper<ServiceType> {
+internal class GetHomeHealthMapper : RowMapper<ServiceType> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): ServiceType {
         if (rs == null) throw ClassNotFoundException()
 
