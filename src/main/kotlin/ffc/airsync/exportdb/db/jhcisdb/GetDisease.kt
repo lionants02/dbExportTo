@@ -2,7 +2,7 @@ package ffc.airsync.exportdb.db.jhcisdb
 
 import ffc.entity.Lang
 import ffc.entity.healthcare.Disease
-import ffc.entity.util.generateTempId
+import ffc.entity.healthcare.Icd10
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -38,8 +38,8 @@ class GetDiseaseMapper : RowMapper<Disease> {
         val nameTh = rs.getString("diseasenamethai")
         val chronicCode = rs.getString("codechronic")
 
-        val disease = Disease(
-            id = generateTempId(),
+        return Icd10(
+            id = icd10,
             name = nameEn,
             icd10 = icd10,
             isChronic = (chronicCode != null),
@@ -47,8 +47,6 @@ class GetDiseaseMapper : RowMapper<Disease> {
         ).apply {
             translation[Lang.th] = nameTh
         }
-
-        return disease
     }
 
     fun ncdsFilter(icd10: String): Boolean {
