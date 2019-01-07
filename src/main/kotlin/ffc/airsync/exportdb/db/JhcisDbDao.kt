@@ -1,11 +1,9 @@
 package ffc.airsync.exportdb.db
 
 import ffc.airsync.exportdb.QueryData
-import ffc.airsync.exportdb.db.jhcisdb.GetHint
 import ffc.airsync.exportdb.db.jhcisdb.QueryDisease
 import ffc.airsync.exportdb.db.jhcisdb.QueryHomeHealthType
 import ffc.airsync.exportdb.db.jhcisdb.QuerySpecialPP
-import ffc.entity.Template
 import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.SpecialPP.PPType
@@ -32,15 +30,6 @@ class JhcisDbDao(
 
     override fun getSpecialPpType(): List<PPType> {
         return createJdbi().extension<QuerySpecialPP, List<PPType>> { get() }
-    }
-
-    override fun getTemplate(): List<Template> {
-        val result = arrayListOf<Template>()
-        result.addAll(createJdbi().extension<GetHint, List<Template>> { getSyntom() })
-        result.addAll(createJdbi().extension<GetHint, List<Template>> { getHomeVisitDetail() })
-        result.addAll(createJdbi().extension<GetHint, List<Template>> { getHomeVisitResult() })
-
-        return result
     }
 
     private fun createJdbi(): Jdbi {
